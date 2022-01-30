@@ -35,9 +35,7 @@ function Provider({ children }) {
     console.log(data);
 
     try {
-      const res = await api.post('/project/create', data)
-      console.log(res)
-      console.log('Aqui!')
+      await api.post('/project/create', data)
     } catch (err) {
       alert("Error ao cadastrar um projeto!")
     }
@@ -45,6 +43,7 @@ function Provider({ children }) {
 
   const contextValue = {
     project,
+    setProject,
     newProject,
     setName_project,
     name_project,
