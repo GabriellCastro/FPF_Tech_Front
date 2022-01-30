@@ -20,7 +20,7 @@ function Provider({ children }) {
       .then((res) => setProject(res.data));
   }, []);
 
-  const newProject = async (e) => {
+  const newProject = (e) => {
     e.preventDefault();
 
     const data = {
@@ -32,10 +32,10 @@ function Provider({ children }) {
       name_participant,
     };
 
-    console.log(data);
 
     try {
-      await api.post('/project/create', data)
+      api.post('/project/create', data).then(({data: { message }}) => alert(message))
+
     } catch (err) {
       alert("Error ao cadastrar um projeto!")
     }
