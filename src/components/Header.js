@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import logo from '../images/logo.png';
 
 function Header() {
-  return ( 
+  return (
     <div>
       <nav className="bg-gray-900 flex justify-around items-center flex-wrap p-4">
         <div>
@@ -23,7 +23,7 @@ function Header() {
         </div>
       </nav>
     </div>
-   );
+  );
 }
 
 export default Header;

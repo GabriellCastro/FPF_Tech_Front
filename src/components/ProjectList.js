@@ -12,7 +12,7 @@ function ProjectList() {
             <div className="flex items-center justify-center w-full">
               <div className="w-4/1 ml-2 mr-2 bg-gray-900 p-8 shadow rounded">
                 <div className="flex items-center border-b border-gray-200 pb-6">
-                  <img src="https://cdn.tuk.dev/assets/components/misc/doge-coin.png" alt="dog img" className="w-12 h-12 rounded-full" />
+                  <img src="https://media1.giphy.com/media/pn1e1I4nAVtSMo1h7y/200w.gif?cid=82a1493b0ps28qsg9s1jhx3bdlqh0xybzvo1p5913aon1x2e&rid=200w.gif&ct=g" alt="dog img" className="w-12 h-12 rounded-full" />
                   <div className="flex items-start justify-between w-full">
                     <div className="pl-3 w-full flex justify-between">
                       <div>
