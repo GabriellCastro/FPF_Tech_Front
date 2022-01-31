@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { node } from 'prop-types';
 import api from '../services/api';
 import ProjectContext from './ProjectContext';
@@ -14,11 +14,6 @@ function Provider({ children }) {
   const [value, setValue] = useState('');
   const [risk, setRisk] = useState('');
   const [name_participant, setName_participant] = useState('');
-
-  useEffect(() => {
-    api.get('project')
-      .then((res) => setProject(res.data));
-  }, []);
 
   const newProject = (e) => {
     e.preventDefault();

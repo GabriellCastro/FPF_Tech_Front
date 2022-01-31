@@ -2,36 +2,61 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import api from '../../services/api';
+import { toast } from 'react-toastify';
 
 function ProjectEdit() {
   // Projeto do id Buscado
-  const [project, setProject] = useState([])
+  const [project, setProject] = useState([]);
+
+  //State Att
+  const [name, setName] = useState('');
+  const [dateI, setDateI] = useState('');
+  const [dateF, setDateF] = useState('');
+  const [valueAtt, setValueAtt] = useState('');
+  const [riksAtt, setRiskAtt] = useState('');
+  const [participantes, setParticipantes] = useState('');
 
   // id da url
   const { id } = useParams();
 
   useEffect(() => {
-    api.get(`/project/${id}`)
-      .then((res) => setProject(res.data))
+    async function get() {
+      const {data} = await api.get(`/project/${id}`);
+      setProject(data);
+      setName(data.name_project)
+      setDateI(data.date_initial)
+      setDateF(data.date_final)
+      setValueAtt(data.value)
+      setRiskAtt(data.risk)
+      setParticipantes(data.name_participant)
+    }
+    get()
   }, [id]);
-
 
   const updateSubmit = async (e) => {
     e.preventDefault();
+
+    const dataValue = {
+      name_project: name,
+      date_initial: dateI,
+      date_final: dateF,
+      value: valueAtt,
+      risk: riksAtt,
+      name_participant: participantes,
+    };
+
+    console.log(dataValue)
+
     try {
-      await api.update(`project/update${id}`, project);
+      const {data: { message }} = await api.put(`/project/update/${id}`, dataValue)
+      return toast.success(message)
     } catch (error) {
-      alert("Error ao tentar Editar o Projeto!!")
+      console.log(error)
+      return toast.error("Error ao tentar Editar o Projeto!!");
     }
   }
 
-  const handleValue = (value) => {
-    console.log(value)
-  }
-
   if (!project || project.length === 0) return 'Loading...';
-
-  const { name_project, date_initial, date_final, value, risk, name_participant } = project;
   return (
     <>
       <Header />
@@ -47,8 +72,8 @@ function ProjectEdit() {
                   <label className="block text-xl font-medium text-lime-200">Nome do Projeto:</label>
                   <input
                     type="text"
-                    value={name_project}
-                    onChange={(e) => handleValue(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className="border-2 w-full px-4 py-2 rounded-md text-md text-gray-700 outline-none"
                     required
                   />
@@ -58,8 +83,8 @@ function ProjectEdit() {
                   <label  className="block text-xl font-medium text-lime-200">Valor do Projeto:</label>
                   <input
                     type="number"
-                    value={value}
-                    onChange={(e) => handleValue(e.target.value)}
+                    value={valueAtt}
+                    onChange={(e) => setValueAtt(e.target.value)}
                     className="border-2 w-full px-4 py-2 rounded-md text-md text-gray-700 outline-none"
                     required
                   />
@@ -69,8 +94,8 @@ function ProjectEdit() {
                   <label className="block text-xl font-medium text-lime-200">Data de Início:</label>
                   <input
                     type="date"
-                    value={date_initial}
-                    onChange={(e) => handleValue(e.target.value)}
+                    value={dateI}
+                    onChange={(e) => setDateI(e.target.value)}
                     className="border-2 w-full px-4 py-2 rounded-md text-md text-gray-700 outline-none"
                     required
                   />
@@ -80,8 +105,8 @@ function ProjectEdit() {
                   <label className="block text-xl font-medium text-lime-200">Data de Finalização:</label>
                   <input
                     type="date"
-                    value={date_final}
-                    onChange={(e) => handleValue(e.target.value)}
+                    value={dateF}
+                    onChange={(e) => setDateF(e.target.value)}
                     className="border-2 w-full px-4 py-2 rounded-md text-md text-gray-700 outline-none"
                     required
                   />
@@ -91,8 +116,8 @@ function ProjectEdit() {
                   <label  className="block text-xl font-medium text-lime-200">Participantes do Projeto:</label>
                   <input
                     type="text"
-                    value={name_participant}
-                    onChange={(e) => handleValue(e.target.value)}
+                    value={participantes}
+                    onChange={(e) => setParticipantes(e.target.value)}
                     className="border-2 w-full px-4 py-2 rounded-md text-md text-gray-700 outline-none"
                     required
                   />
@@ -101,8 +126,8 @@ function ProjectEdit() {
                 <div className="col-span-6 sm:col-span-3">
                   <label  className="block text-xl font-medium text-lime-200">Risco do Projeto:</label>
                   <select
-                    value={risk}
-                    onChange={(e) => handleValue(e.target.value)}
+                    value={riksAtt}
+                    onChange={(e) => setRiskAtt(e.target.value)}
                     className="form-select appearance-none
                     block
                     w-full
@@ -127,7 +152,7 @@ function ProjectEdit() {
               </div>
             </div>
             <div className="px-4 py-3 text-center sm:px-6">
-              <button onClick={(e) => updateSubmit(e)} className="inline-flex justify-center py-5 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button onClick={updateSubmit} className="inline-flex justify-center py-5 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Atualizar projeto 📝
               </button>
             </div>

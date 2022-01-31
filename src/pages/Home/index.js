@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
 import ProjectList from '../../components/ProjectList';
+import ProjectContext from '../../context/ProjectContext';
+import api from '../../services/api';
 
 function Home() {
+  const { setProject } = useContext(ProjectContext)
+
+  useEffect(() => {
+    console.log('aqui')
+    api.get('project')
+    .then((res) => setProject(res.data));
+  }, []);
 
   return ( 
     <>
