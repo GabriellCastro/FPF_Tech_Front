@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { node } from 'prop-types';
 import api from '../services/api';
 import ProjectContext from './ProjectContext';
+import { toast } from 'react-toastify';
 
 function Provider({ children }) {
   // lista de projetos
@@ -29,10 +30,10 @@ function Provider({ children }) {
 
 
     try {
-      api.post('/project/create', data).then(({data: { message }}) => alert(message))
+      api.post('/project/create', data).then(({data: { message }}) => toast.success(message))
 
     } catch (err) {
-      alert("Error ao cadastrar um projeto!")
+      toast.error("Error ao cadastrar um projeto!")
     }
   }
 
