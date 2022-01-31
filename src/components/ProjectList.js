@@ -30,6 +30,20 @@ function ProjectList() {
                     </div>
                   </div>
                 </div>
+                <div className='flex justify-between mt-4'>
+                  <div className='pl-3'>
+                      <strong className="text-xl font-medium leading-5 text-lime-200">Data Inicial:</strong>
+                      <p className="text-sm leading-normal pt-1 text-gray-500">{element.date_initial}</p>
+                  </div>
+                  <div>
+                      <strong className="text-xl font-medium leading-5 text-lime-200">Data Final:</strong>
+                      <p className="text-sm leading-normal pt-1 text-gray-500">{element.date_final}</p>
+                  </div>
+                </div>
+                <div>
+                <div>
+                </div>
+                </div>
                 <div className="px-2 mt-6">
                   <div className="flex items-start justify-between w-full">
                     <div className="pl-3 w-full flex justify-between">
